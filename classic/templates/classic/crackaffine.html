@@ -1,0 +1,42 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crack Using Letter Frequency Decryption - Affine Cipher</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+        <h1 class="title" align="left">Crack Using Letter Frequency Decryption</h1>
+    
+        <ul class="nav-links">
+          <li><a href="../../">Home</a></li>
+        </ul>
+    </nav>
+    <p class="description-q">
+        What is Cracking using Letter Frequency?
+    </p>
+    <p class ="description"> 
+        Cracking using Letter Frequency swiftly decodes affine cipher encrypted messages by using initial guesses for the two most frequent letters. It computes key values using these guesses and unveils the hidden text with the assumption in mind.
+    </p>
+    <main>
+        <form method="post">
+            <p> Enter Ciphertext: </p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Crack using Letter Frequency">
+        </form>
+        {% if results %}
+        <h2>Plaintext (Guessed):</h2>
+        <p>{{ results|linebreaks}}</p>
+        {% endif %}
+    </main>
+    <div class="additional-links-container">
+        <ul class="additional-links">
+          <li><a href="../">Back to General Encryption and Decryption</a></li>
+        </ul>
+      </div>
+</body>
+</html>

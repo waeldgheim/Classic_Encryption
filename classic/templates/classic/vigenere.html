@@ -1,0 +1,43 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vigenère Cipher</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+        <h1 class="title" align="left">Vigenère Cipher</h1>
+    
+        <ul class="nav-links">
+          <li><a href="../">Home</a></li>
+        </ul>
+    </nav>
+    <p class="description-q">
+        What is Vigenère Cipher?
+    </p>
+    <p class ="description"> 
+        The Vigenère cipher is based on a shift cipher to which is added the use of a keyword that changes the shift at each step. The user selects a keyword, repeats it to match the message length, and encrypts the plaintext by shifting each letter based on the corresponding letter in the keyword.
+
+        <center><div class="white-box"> 
+            <font size = "4.5"><center>General Encryption Formula:<b> Ci = (Pi+Ki) mod 26
+            </b><br> General Decryption Formula:<b> Pi = (Ci-Ki+26) mod 26
+            </b> </center> </font size = "4.5"> 
+            </div></center>
+    </p>
+    <main>
+        <form method="post">
+            <p> Enter Text: </p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Enter">
+        </form>
+        {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result|linebreaks }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>

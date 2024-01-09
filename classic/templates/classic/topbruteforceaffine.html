@@ -1,0 +1,46 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crack Using Top Brute Force Decryption - Affine Cipher</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+        <h1 class="title" align="left">Crack Using Top Brute Force Decryption</h1>
+    
+        <ul class="nav-links">
+          <li><a href="../../">Home</a></li>
+        </ul>
+    </nav>
+    <p class="description-q">
+        What is Cracking using Top Brute Force?
+    </p>
+    <p class ="description"> 
+        Cracking using Top Brute Force effortlessly decodes messages encrypted with an affine cipher by exhaustively testing key combinations, this Python script intelligently ranks the deciphered results, prioritizing those with a higher frequency of common English words and displays the top 3 results.
+    </p>
+    <main>
+        <form method="post">
+            <p> Enter Ciphertext: </p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Crack using Top Brute Force">
+        </form>
+        {% if results %}
+        <h2>Top Decryptions:</h2>
+        <ol>
+            {% for result in results %}
+            <li>Rank {{ result.Rank }} - {{ result.Decryption }} (Score: {{ result.Score }})</li>
+            {% endfor %}
+        </ol>
+        {% endif %}
+    </main>
+    <div class="additional-links-container">
+        <ul class="additional-links">
+          <li><a href="../">Back to General Encryption and Decryption</a></li>
+        </ul>
+      </div>
+</body>
+</html>

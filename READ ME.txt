@@ -1,0 +1,10 @@
+Quick Guide:
+
+Click on the classic folder to get a view of everything important backend wise: views.py, forms.py, affine.py etc... 
+
+Inside the classic folder open the templates folder to get see everything important frontend wise: home.html, affine.html etc...
+
+Note:
+The code requires a venv to run on the local host machine with Django, we excluded this folder as it would make the file too big
+
+To see the application open https://classic-encryption-455.azurewebsites.net/classic/ and wait for it to load, might take some time

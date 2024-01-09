@@ -1,0 +1,37 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Extended Euclid Algorithm</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+        <h1 class="title" align="left">Extended Euclidean Algorithm</h1>
+    
+        <ul class="nav-links">
+          <li><a href="../classic/">Home</a></li>
+        </ul>
+    </nav>
+    <p class="description-q">
+        What is the Extended Euclidean Algorithm?
+    </p>
+    <p class ="description"> 
+        The Extended Euclidean Algorithm finds the modular inverse of 'a' modulo 'm' by calculating two integers 'x' and 'y' such that ax + my = 1. When 'a' and 'm' are coprime, 'x' is the modular inverse of 'a' modulo 'm'.
+    </p>
+    <main>
+        <form method="post">
+            <p>Find inverse of a mod b:</p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Find">
+        </form>
+        {% if inverse %}
+        <h2>Inverse:</h2>
+        <p>{{ inverse }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>

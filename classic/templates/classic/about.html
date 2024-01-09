@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About</title>
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+</head>
+<body>
+  <nav>
+    <h1 class="title" align="left">About</h1>
+
+    <ul class="nav-links">
+      <li><a href="../">Home</a></li>
+    </ul>
+  </nav>
+  <main>
+    <p class = "description">
+    This project was developed by a team of four students enrolled in EECE 455: Cryptography & Network Security.
+    For our project we will explore the specifics of classical encryption techniques. Our goal is to use these strategies in a concrete and useful way in addition to understanding them conceptually.
+    We decided to use Django, a high-level Python web framework that promotes quick development and simple, practical design, as the framework of choice for our project. In addition we wanted to turn our encryption algorithms into an intuitive cloud-hosted user experience. We focused on Azure, a cloud platform known for its scalability and consistency.
+    We divided the work between front and backend. For our front end implementation we used HTML and CSS in order to design our website and for our backend implementation we used Python to implement the encryption techniques.
+    <br>
+    <br>
+    <center>
+      Antoine Abou Faycal<br>Wael Dgheim<br>Adel El Kadi<br>Sarjoun Radiyeh
+    </center>
+    <p>
+  </main>
+</body>
+</html>

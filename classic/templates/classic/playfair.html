@@ -1,0 +1,82 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playfair Cipher</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+
+    <style>
+
+
+        div, table{
+            display: inline-block;
+        }
+        
+        table {
+            border-collapse: collapse;
+            background-color: #fff;
+            margin-left: 500px;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav>
+        <h1 class="title" align="left">Playfair Cipher</h1>
+    
+        <ul class="nav-links">
+          <li><a href="../">Home</a></li>
+        </ul>
+    </nav>
+
+    <p class="description-q">
+        What is Playfair Cipher?
+    </p>
+    <p class ="description"> 
+        The <b>Playfair</b> cipher operates by encrypting pairs of letters rather then individual letters. It employs a 5x5 matrix and uses a keyword to fill in the matrix excluding duplicate letters; the remaining letters of the alphabet are used to fill the matrix.
+    </p>
+
+    <main>
+
+        
+        <form method="post">
+            <div>
+                <p> Enter Text: </p>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="Enter">
+            </div>
+
+
+            <table>
+                {% for i in l %}
+                    {% if forloop.counter0|divisibleby:5 %}
+                        {% if not forloop.first %}</tr>{% endif %}
+                        <tr>{% endif %}
+                        <td>{{ i }}</td>
+                    {% if forloop.last %}</tr>{% endif %}
+    
+                {% endfor %}
+            </table>
+        </form>
+        
+        {% if result %}
+        <h2>Result:</h2>
+        <p>{{ result|linebreaks }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>

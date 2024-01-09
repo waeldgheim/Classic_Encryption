@@ -1,0 +1,44 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monoalphabetic Cipher</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <nav>
+        <h1 class="title" align="left">Monoalphabetic Cipher</h1>
+    
+        <ul class="nav-links">
+          <li><a href="../">Home</a></li>
+        </ul>
+    </nav>
+    <p class="description-q">
+        What is Monoalphabetic Cipher?
+    </p>
+    <p class ="description"> 
+        An <b>alphabetic substitution</b> is a substitution cipher where the letters of the alphabet are replaced by others according to a 1-1 correspondence (a plain letter always corresponds to the same cipher letter).
+        <br>
+        The substitution is said to be <b>monoalphabetic</b> because it uses only one alphabet, this alphabet is said to be disordered.
+        <center><div class="white-box"> 
+            <font size = "4.5"><center>General Encryption Formula:<b> Ci=(Pi+shift)mod26</b><br> General Decryption Formula:<b> Pi=(Ci−shift)mod26
+            </b> </center> </font size = "4.5"> 
+        </div></center>
+    </p>
+    <main>
+        <form method="post">
+            <p> Enter Text: </p>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Enter">
+        </form>
+        
+        {% if result %}
+            <h2>Result:</h2>
+            <p>{{ result|linebreaks }}</p>
+        {% endif %}
+    </main>
+</body>
+</html>

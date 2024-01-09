@@ -1,0 +1,259 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hill Cipher</title>
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+    <script>
+        function showForm(formToShow, formToHide) {
+            document.getElementById(formToShow).style.display = 'block';
+            document.getElementById(formToHide).style.display = 'none';
+        }
+        function preventSubmit(event) {
+            event.preventDefault();
+        }
+    </script>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        table, td {
+            border: 1px black;
+            padding: 5px;
+        }
+        .matrix-switch-btn {
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #005a8d;
+            color: white;
+        }
+
+        .matrix-switch-btn:hover {
+            background-color: #1f4c6f;
+        }
+
+        #f, #matrix,#inverse{
+            display: inline-block;
+        }
+
+        #matrix,#inverse{
+            border-collapse: collapse;
+            background-color: #fff;
+            margin-left: 50px;
+            margin-right:50px;
+        }
+
+        #col, #row {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1 class="title" align="left">Hill Cipher</h1>
+    
+        <ul class="nav-links">
+          <li><a href="../">Home</a></li>
+        </ul>
+    </nav>
+
+    <p class="description-q">
+        What is Hill Cipher?
+    </p>
+    <p class ="description"> 
+        <b>Hill Cipher</b> is a polyalphabetic cipher created by extending the Affine cipher, using linear algebra and modular arithmetic via a numeric matrix that serves as an encryption and decryption key.
+        <center><div class="white-box"> 
+            <font size = "4.5"><center>General Encryption Formula:<b> E(K, P) = (K*P) mod 26</b><br> General Decryption Formula:<b> D(K, C) = (K<sup>-1</sup> *C) mod 26</b> </center> </font size = "4.5"> 
+            </div></center>
+    </p>
+
+    <main>
+        <button class="matrix-switch-btn" onclick="showForm('form_2x2', 'form_3x3')">2x2 Matrix</button>
+        <button class="matrix-switch-btn" onclick="showForm('form_3x3', 'form_2x2')">3x3 Matrix</button>
+        <div id="form_2x2">
+            <form method="post">
+            <div id="f">
+                {% csrf_token %}
+                {{ form_2x2.text_2x2.label_tag }}
+                <br>
+                {{ form_2x2.text_2x2 }}
+                <br>
+                <p> Enter 2x2 key matrix: (matrix must be invertible for decryption)</p>
+                <table>
+                    <tr>
+                        <th>{{ form_2x2.key_00_2x2.label_tag }}</th>
+                        <th>{{ form_2x2.key_01_2x2.label_tag }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ form_2x2.key_00_2x2 }}</td>
+                        <td>{{ form_2x2.key_01_2x2 }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ form_2x2.key_10_2x2.label_tag }}</th>
+                        <th>{{ form_2x2.key_11_2x2.label_tag }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ form_2x2.key_10_2x2 }}</td>
+                        <td>{{ form_2x2.key_11_2x2 }}</td>
+                    </tr>
+                </table>
+                <br>
+                {{ form_2x2.operation_2x2.label_tag }}
+                {{ form_2x2.operation_2x2 }}
+                <br><br>
+                <input type="submit" value="Enter">
+            </div>
+
+            {%if result_2x2%}
+
+            <div id="matrix">
+            <p id="title1">Key:</p>
+            <table id ="matrix">
+                {% for i in key %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                        {% if not forloop.first %}</tr>{% endif %}
+                        <tr id ="row">{% endif %}
+                        <td id = "col">{{ i }}</td>
+                    {% if forloop.last %}</tr>{% endif %}
+    
+                {% endfor %}
+            </table>
+            </div>
+            
+            <div id="inverse">
+
+            {%if k%}
+            <p id="title2">Inverse:</p>
+            <table id = "inverse">
+            
+                {% for i in k %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                        {% if not forloop.first %}</tr>{% endif %}
+                        <tr id="row">{% endif %}
+                        <td id = "col">{{ i }}</td>
+                    {% if forloop.last %}</tr>{% endif %}
+    
+                {% endfor %}
+            </table>
+            {%endif%}
+            </div>
+
+            {%endif%}
+
+            </form>
+            {% if result_2x2 %}
+                <h3>Result:</h3>
+                <p>{{ result_2x2|linebreaks }}</p>
+            {% endif %}
+        </div>
+
+        <div id="form_3x3" style="display: none;">
+            <form method="post">
+                <div id="f">
+                {% csrf_token %}
+                {{ form_3x3.text_3x3.label_tag }}
+                <br>
+                {{ form_3x3.text_3x3 }}
+                <br>
+                <p> Enter 3x3 key matrix: (matrix must be invertible for decryption)</p>
+                <table>
+                    <tr>
+                        <th>{{ form_3x3.key_00_3x3.label_tag }}</th>
+                        <th>{{ form_3x3.key_01_3x3.label_tag }}</th>
+                        <th>{{ form_3x3.key_02_3x3.label_tag }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ form_3x3.key_00_3x3 }}</td>
+                        <td>{{ form_3x3.key_01_3x3 }}</td>
+                        <td>{{ form_3x3.key_02_3x3 }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ form_3x3.key_10_3x3.label_tag }}</th>
+                        <th>{{ form_3x3.key_11_3x3.label_tag }}</th>
+                        <th>{{ form_3x3.key_12_3x3.label_tag }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ form_3x3.key_10_3x3 }}</td>
+                        <td>{{ form_3x3.key_11_3x3 }}</td>
+                        <td>{{ form_3x3.key_12_3x3 }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ form_3x3.key_20_3x3.label_tag }}</th>
+                        <th>{{ form_3x3.key_21_3x3.label_tag }}</th>
+                        <th>{{ form_3x3.key_22_3x3.label_tag }}</th>
+                    </tr>
+                    <tr>
+                        <td>{{ form_3x3.key_20_3x3 }}</td>
+                        <td>{{ form_3x3.key_21_3x3 }}</td>
+                        <td>{{ form_3x3.key_22_3x3 }}</td>
+                    </tr>
+                </table>
+                <br>
+                {{ form_3x3.operation_3x3.label_tag }}
+                {{ form_3x3.operation_3x3 }}
+                <br><br>
+                <input type="submit" value="Enter">
+                </div>
+
+                {%if result_3x3%}
+
+                <div id="matrix">
+                <p id="title1">Key:</p>
+                <table id ="matrix">
+                    {% for i in key %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            {% if not forloop.first %}</tr>{% endif %}
+                            <tr id ="row">{% endif %}
+                            <td id = "col">{{ i }}</td>
+                        {% if forloop.last %}</tr>{% endif %}
+        
+                    {% endfor %}
+                </table>
+                </div>
+                
+                <div id="inverse">
+    
+                {%if k%}
+                <p id="title2">Inverse:</p>
+                <table id = "inverse">
+                
+                    {% for i in k %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            {% if not forloop.first %}</tr>{% endif %}
+                            <tr id="row">{% endif %}
+                            <td id = "col">{{ i }}</td>
+                        {% if forloop.last %}</tr>{% endif %}
+        
+                    {% endfor %}
+                </table>
+                {%endif%}
+                </div>
+    
+                {%endif%}
+            </form>
+            {% if result_3x3 %}
+            
+            <script>
+                document.getElementById('form_3x3').style.display = 'block';
+                document.getElementById('form_2x2').style.display = 'none';
+            </script>
+                <h3>Result:</h3>
+                <p>{{ result_3x3|linebreaks }}</p>
+            {% endif %}
+        </div>
+
+    </main>
+</body>
+</html>

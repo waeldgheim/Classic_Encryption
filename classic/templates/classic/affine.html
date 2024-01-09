@@ -1,0 +1,51 @@
+{%load static%}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Affine Cipher</title>
+  <link rel="icon" href="{% static 'images/favicon.png' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/affine.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <nav>
+    <h1 class="title" align="left">Affine Cipher</h1>
+
+    <ul class="nav-links">
+      <li><a href="../">Home</a></li>
+    </ul>
+  </nav>
+  <p class="description-q">
+    What is the Affine cipher?
+  </p>
+  <p class="description">
+    The Affine Cipher is a substitution cipher whose key consists of 2 coefficients <b> a </b> and <b> b </b> constituting the parameters of a mathematical linear function: <br> 
+    <center><div class="white-box"> 
+    <font size = "4.5"><center>General Encryption Formula:<b> E(x)=(ax+b) mod26</b><br> General Decryption Formula:<b> D(y)=a<sup>−1</sup>(y−b) mod26</b> </center> </font size = "4.5"> 
+    </div></center>
+
+  </p>
+
+  <main>
+    <form method="post">
+      <p> Enter Text: </p>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Enter">
+    </form>
+
+    {% if result %}
+
+    <h2>Result: </h2>
+    <p>{{ result|linebreaks }}</p>
+    {% endif %}
+  </main>
+  <div class="additional-links-container">
+    <p class="additional-links-title">Additional Features:</p>
+    <ul class="additional-links">
+      <li><a href="crack/">Click to Crack using Letter Frequency</a></li>
+      <li><a href="top_brute_force/">Click to Crack using Top Brute Force</a></li>
+    </ul>
+  </div>
+</body>
+</html>
